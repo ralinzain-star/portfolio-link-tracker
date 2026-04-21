@@ -128,3 +128,12 @@
     @apply font-sans;
   }
 }
+
+.glass-page {
+  color: white;
+  --foreground: oklch(1 0 0);
+  --card-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 20%);
+  --input: oklch(1 0 0 / 20%);
+  --ring: oklch(1 0 0 / 30%);
+}
