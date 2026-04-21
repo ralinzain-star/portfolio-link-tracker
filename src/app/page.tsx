@@ -23,13 +23,13 @@ export default function Home() {
         <div className="mt-10 flex justify-center gap-4">
           <Link
             href="/admin"
-            className="rounded-xl bg-gradient-to-r from-amber-500/90 to-orange-500/90 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-900/30 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:from-amber-400/90 hover:to-orange-400/90 hover:shadow-xl"
+            className="rounded-xl border border-white/30 bg-white/25 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/10 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white/35 hover:shadow-xl"
           >
             進入管理後台
           </Link>
           <Link
             href="/login"
-            className="rounded-xl border border-amber-300/30 bg-amber-500/10 px-8 py-3.5 text-sm font-semibold text-amber-100 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:bg-amber-500/20 hover:text-white"
+            className="rounded-xl border border-white/20 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white/80 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white/20 hover:text-white"
           >
             登入
           </Link>
