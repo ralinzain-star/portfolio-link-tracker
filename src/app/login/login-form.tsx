@@ -146,7 +146,7 @@ export function LoginForm({
                 <button
                   type="submit"
                   disabled={loading || cooldown > 0}
-                  className="h-12 w-full rounded-xl border border-white/30 bg-white/20 text-base font-semibold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white/30 disabled:border-white/10 disabled:bg-white/5 disabled:text-white/30 disabled:shadow-none"
+                  className="h-12 w-full rounded-xl bg-gradient-to-r from-amber-500/90 to-orange-500/90 text-base font-semibold text-white shadow-lg shadow-orange-900/30 backdrop-blur-sm transition-all hover:from-amber-400/90 hover:to-orange-400/90 hover:shadow-xl disabled:from-white/10 disabled:to-white/10 disabled:text-white/30 disabled:shadow-none"
                 >
                   {loading
                     ? "寄送中..."
