@@ -2,9 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { createBrowserClient } from "@supabase/ssr";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 const COOLDOWN_SECONDS = 20;
 
@@ -55,21 +52,19 @@ export function LoginForm({
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjAzIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnYtMmgtNHYyaC0ydjRoLTJ2MmgtMnYyaDJ2LTJoMnYyaDJ2LTJoMnYtMmgydi0yeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/bg.png')" }}
+      />
+      <div className="absolute inset-0 bg-black/10" />
 
-      {/* Floating shapes */}
-      <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute -bottom-32 -right-20 h-96 w-96 rounded-full bg-purple-400/20 blur-3xl" />
-      <div className="absolute top-1/4 right-1/4 h-48 w-48 rounded-full bg-cyan-400/10 blur-3xl" />
-
-      {/* Card */}
+      {/* Glassmorphism Card */}
       <div className="relative z-10 w-full max-w-md px-4">
-        <div className="rounded-3xl border border-white/20 bg-white/90 px-8 py-10 shadow-2xl shadow-black/10 backdrop-blur-xl">
+        <div className="rounded-3xl border border-white/25 bg-white/10 px-8 py-10 shadow-2xl shadow-black/20 backdrop-blur-2xl">
           {/* Logo */}
           <div className="mb-6 flex justify-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/30">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/15 shadow-lg backdrop-blur-sm">
               <svg
                 className="h-7 w-7 text-white"
                 fill="none"
@@ -88,29 +83,29 @@ export function LoginForm({
 
           {sent ? (
             <div className="text-center">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-white">
                 檢查你的信箱
               </h1>
-              <p className="mt-3 text-sm leading-relaxed text-gray-500">
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
                 我們已寄送登入連結到
                 <br />
-                <strong className="text-gray-900">{email}</strong>
+                <strong className="text-white">{email}</strong>
               </p>
-              <p className="mt-4 text-xs text-gray-400">
+              <p className="mt-4 text-xs text-white/40">
                 點擊信件中的連結即可登入管理後台
               </p>
 
               {cooldown > 0 ? (
                 <button
                   disabled
-                  className="mt-6 w-full rounded-xl bg-gray-100 px-6 py-3 text-sm font-medium text-gray-400"
+                  className="mt-6 w-full rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white/40"
                 >
                   {cooldown} 秒後可重新發送
                 </button>
               ) : (
                 <button
                   onClick={() => setSent(false)}
-                  className="mt-6 w-full rounded-xl bg-gray-100 px-6 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-200"
+                  className="mt-6 w-full rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-white/80 transition hover:bg-white/20"
                 >
                   重新發送
                 </button>
@@ -118,55 +113,51 @@ export function LoginForm({
             </div>
           ) : (
             <>
-              <h1 className="text-center text-2xl font-bold text-gray-900">
+              <h1 className="text-center text-2xl font-bold text-white">
                 Portfolio Link Tracker
               </h1>
-              <p className="mt-2 text-center text-sm text-gray-500">
+              <p className="mt-2 text-center text-sm text-white/60">
                 輸入你的 Email 登入管理後台
               </p>
 
               <form onSubmit={handleLogin} className="mt-8 space-y-5">
                 <div className="space-y-2">
-                  <Label
+                  <label
                     htmlFor="email"
-                    className="text-xs font-semibold uppercase tracking-wider text-gray-500"
+                    className="block text-xs font-semibold uppercase tracking-wider text-white/50"
                   >
                     Email
-                  </Label>
-                  <Input
+                  </label>
+                  <input
                     id="email"
                     type="email"
                     placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="h-12 rounded-xl border-gray-200 bg-gray-50/80 px-4 text-base transition focus:border-blue-400 focus:bg-white focus:ring-2 focus:ring-blue-500/20"
+                    className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-4 text-base text-white placeholder:text-white/30 outline-none backdrop-blur-sm transition focus:border-white/40 focus:bg-white/15 focus:ring-2 focus:ring-white/20"
                   />
                 </div>
                 {error && (
-                  <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+                  <p className="rounded-lg border border-red-400/30 bg-red-500/20 px-3 py-2 text-sm text-red-200">
                     {error}
                   </p>
                 )}
-                <Button
+                <button
                   type="submit"
                   disabled={loading || cooldown > 0}
-                  className="h-12 w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-base font-semibold shadow-lg shadow-blue-500/30 transition-all hover:shadow-xl hover:shadow-blue-500/40 disabled:from-gray-300 disabled:to-gray-400 disabled:shadow-none"
+                  className="h-12 w-full rounded-xl border border-white/30 bg-white/20 text-base font-semibold text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white/30 disabled:border-white/10 disabled:bg-white/5 disabled:text-white/30 disabled:shadow-none"
                 >
                   {loading
                     ? "寄送中..."
                     : cooldown > 0
                       ? `${cooldown} 秒後可重新發送`
                       : "寄送 Magic Link"}
-                </Button>
+                </button>
               </form>
             </>
           )}
         </div>
-
-        <p className="mt-6 text-center text-xs text-white/50">
-          追蹤誰打開了你的作品集
-        </p>
       </div>
     </div>
   );
