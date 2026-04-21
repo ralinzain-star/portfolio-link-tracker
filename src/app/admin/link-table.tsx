@@ -36,21 +36,21 @@ export function LinkTable({ links }: { links: Link[] }) {
             />
           </svg>
         </div>
-        <p className="text-sm text-gray-500">還沒有建立任何追蹤連結</p>
+        <p className="text-sm text-gray-500">No tracking links yet</p>
         <p className="mt-1 text-xs text-gray-400">
-          在上方輸入公司名稱來生成第一個
+          Create your first one above
         </p>
       </div>
     );
   }
 
   async function handleDelete(id: string, company: string) {
-    if (!confirm(`確定要刪除 ${company} 的連結嗎？`)) return;
+    if (!confirm(`Delete the link for ${company}?`)) return;
     const result = await deleteLink(id);
     if (result.error) {
       toast.error(result.error);
     } else {
-      toast.success("已刪除");
+      toast.success("Deleted");
     }
   }
 
@@ -71,9 +71,9 @@ export function LinkTable({ links }: { links: Link[] }) {
                 className="mt-0.5 cursor-pointer truncate text-xs text-gray-400 transition hover:text-blue-500"
                 onClick={() => {
                   navigator.clipboard.writeText(trackingUrl);
-                  toast.success("已複製");
+                  toast.success("Copied");
                 }}
-                title="點擊複製"
+                title="Click to copy"
               >
                 {trackingUrl}
               </p>
@@ -97,7 +97,7 @@ export function LinkTable({ links }: { links: Link[] }) {
 
             {/* Date */}
             <div className="hidden text-right text-xs text-gray-400 sm:block">
-              {new Date(link.created_at).toLocaleDateString("zh-TW", {
+              {new Date(link.created_at).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
                 hour: "2-digit",
@@ -109,7 +109,7 @@ export function LinkTable({ links }: { links: Link[] }) {
             <button
               onClick={() => handleDelete(link.id, link.company)}
               className="rounded-lg p-2 text-gray-300 transition hover:bg-red-50 hover:text-red-500"
-              title="刪除"
+              title="Delete"
             >
               <svg
                 className="h-4 w-4"

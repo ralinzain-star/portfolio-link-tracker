@@ -40,26 +40,9 @@ export default async function AdminPage() {
       {/* Header */}
       <header className="border-b border-gray-200/60 bg-white/70 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-md shadow-blue-500/20">
-              <svg
-                className="h-4 w-4 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2.5}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
-                />
-              </svg>
-            </div>
-            <span className="text-lg font-bold text-gray-900">
-              Link Tracker
-            </span>
-          </div>
+          <span className="text-lg font-bold text-gray-900">
+            Link Tracker
+          </span>
           <LogoutButton />
         </div>
       </header>
@@ -67,10 +50,10 @@ export default async function AdminPage() {
       <main className="mx-auto max-w-5xl px-6 py-10">
         {/* Stats */}
         <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          <StatCard label="追蹤連結" value={totalLinks} />
-          <StatCard label="總瀏覽次數" value={totalViews} />
+          <StatCard label="Tracking Links" value={totalLinks} />
+          <StatCard label="Total Views" value={totalViews} />
           <StatCard
-            label="登入帳號"
+            label="Account"
             value={user.email?.split("@")[0] ?? "—"}
             className="col-span-2 sm:col-span-1"
           />
@@ -82,7 +65,7 @@ export default async function AdminPage() {
         {/* Table */}
         <div className="mt-10">
           <h2 className="mb-4 text-lg font-semibold text-gray-900">
-            已建立的連結
+            Your Links
           </h2>
           <LinkTable links={links ?? []} />
         </div>
@@ -126,7 +109,7 @@ async function LogoutButton() {
         type="submit"
         className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-500 transition hover:bg-gray-100 hover:text-gray-700"
       >
-        登出
+        Sign Out
       </button>
     </form>
   );

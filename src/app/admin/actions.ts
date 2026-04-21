@@ -9,7 +9,7 @@ export async function createLink(formData: FormData) {
   const originalUrl = formData.get("originalUrl") as string;
 
   if (!company || !originalUrl) {
-    return { error: "公司名稱與原始連結為必填。" };
+    return { error: "Company name and portfolio URL are required." };
   }
 
   const supabase = await createClient();
@@ -18,7 +18,7 @@ export async function createLink(formData: FormData) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "未登入。" };
+    return { error: "Not authenticated." };
   }
 
   const slug = nanoid(8);

@@ -28,7 +28,7 @@ export function LinkGenerator({ defaultUrl }: { defaultUrl: string }) {
       toast.error(result.error);
     } else if (result.url) {
       setGeneratedUrl(result.url);
-      toast.success(`已為 ${company} 建立追蹤連結`);
+      toast.success(`Tracking link created for ${company}`);
       setCompany("");
     }
     setLoading(false);
@@ -36,9 +36,9 @@ export function LinkGenerator({ defaultUrl }: { defaultUrl: string }) {
 
   return (
     <div className="rounded-2xl border border-gray-200/60 bg-white/70 p-6 shadow-sm backdrop-blur-sm">
-      <h2 className="text-lg font-semibold text-gray-900">生成專屬連結</h2>
+      <h2 className="text-lg font-semibold text-gray-900">Generate Link</h2>
       <p className="mt-1 text-sm text-gray-500">
-        輸入公司或 HR 名稱，一鍵生成可追蹤的專屬作品集連結。
+        Enter a company or recruiter name to create a trackable portfolio link.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -48,11 +48,11 @@ export function LinkGenerator({ defaultUrl }: { defaultUrl: string }) {
               htmlFor="company"
               className="text-xs font-semibold uppercase tracking-wider text-gray-500"
             >
-              公司 / HR 名稱
+              Company / Recruiter
             </Label>
             <Input
               id="company"
-              placeholder="例如：Google"
+              placeholder="e.g. Google"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               required
@@ -64,7 +64,7 @@ export function LinkGenerator({ defaultUrl }: { defaultUrl: string }) {
               htmlFor="originalUrl"
               className="text-xs font-semibold uppercase tracking-wider text-gray-500"
             >
-              原始作品集連結
+              Portfolio URL
             </Label>
             <Input
               id="originalUrl"
@@ -82,14 +82,14 @@ export function LinkGenerator({ defaultUrl }: { defaultUrl: string }) {
           disabled={loading}
           className="h-11 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 px-6 font-semibold shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/30 disabled:from-gray-300 disabled:to-gray-400 disabled:shadow-none"
         >
-          {loading ? "生成中..." : "生成追蹤連結"}
+          {loading ? "Generating..." : "Generate Tracking Link"}
         </Button>
       </form>
 
       {generatedUrl && (
         <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/80 p-4">
           <p className="mb-2 text-sm font-medium text-emerald-700">
-            專屬連結已生成：
+            Your tracking link is ready:
           </p>
           <div className="flex items-center gap-2">
             <code className="flex-1 truncate rounded-lg bg-white px-4 py-2.5 text-sm text-gray-800 shadow-sm">
@@ -98,11 +98,11 @@ export function LinkGenerator({ defaultUrl }: { defaultUrl: string }) {
             <button
               onClick={() => {
                 navigator.clipboard.writeText(generatedUrl);
-                toast.success("已複製到剪貼簿");
+                toast.success("Copied to clipboard");
               }}
               className="shrink-0 rounded-lg border border-emerald-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition hover:bg-emerald-50"
             >
-              複製
+              Copy
             </button>
           </div>
         </div>

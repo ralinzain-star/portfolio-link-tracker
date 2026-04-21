@@ -65,15 +65,15 @@ export function LoginForm({
           {sent ? (
             <div className="text-center">
               <h1 className="text-2xl font-bold text-white">
-                檢查你的信箱
+                Check Your Inbox
               </h1>
               <p className="mt-3 text-sm leading-relaxed text-white/60">
-                我們已寄送登入連結到
+                We sent a login link to
                 <br />
                 <strong className="text-white">{email}</strong>
               </p>
               <p className="mt-4 text-xs text-white/40">
-                點擊信件中的連結即可登入管理後台
+                Click the link in the email to access the dashboard
               </p>
 
               {cooldown > 0 ? (
@@ -81,14 +81,14 @@ export function LoginForm({
                   disabled
                   className="mt-6 w-full rounded-xl border border-white/10 bg-white/5 px-6 py-3 text-sm font-medium text-white/40"
                 >
-                  {cooldown} 秒後可重新發送
+                  Resend in {cooldown}s
                 </button>
               ) : (
                 <button
                   onClick={() => setSent(false)}
                   className="mt-6 w-full rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-white/80 transition hover:bg-white/20"
                 >
-                  重新發送
+                  Resend
                 </button>
               )}
             </div>
@@ -98,7 +98,7 @@ export function LoginForm({
                 Portfolio Link Tracker
               </h1>
               <p className="mt-2 text-center text-sm text-white/60">
-                輸入你的 Email 登入管理後台
+                Sign in with your email to access the dashboard
               </p>
 
               <form onSubmit={handleLogin} className="mt-8 space-y-5">
@@ -130,10 +130,10 @@ export function LoginForm({
                   className="h-12 w-full rounded-xl border border-white/30 bg-white/25 text-base font-semibold text-white shadow-lg shadow-black/10 backdrop-blur-md transition-all hover:bg-white/35 hover:shadow-xl disabled:bg-white/10 disabled:text-white/30 disabled:shadow-none"
                 >
                   {loading
-                    ? "寄送中..."
+                    ? "Sending..."
                     : cooldown > 0
-                      ? `${cooldown} 秒後可重新發送`
-                      : "寄送 Magic Link"}
+                      ? `Resend in ${cooldown}s`
+                      : "Send Magic Link"}
                 </button>
               </form>
             </>

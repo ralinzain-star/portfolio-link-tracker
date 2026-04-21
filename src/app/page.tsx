@@ -15,9 +15,9 @@ export default function Home() {
           Portfolio Link Tracker
         </h1>
         <p className="mx-auto mt-4 max-w-md text-lg text-white/70">
-          為每家目標公司或 HR 生成專屬作品集連結，
+          Generate unique tracking links for every company,
           <br />
-          追蹤誰打開了你的作品集。
+          know exactly who viewed your portfolio.
         </p>
 
         <div className="mt-10 flex justify-center gap-4">
@@ -25,13 +25,13 @@ export default function Home() {
             href="/admin"
             className="rounded-xl border border-white/30 bg-white/25 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/10 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white/35 hover:shadow-xl"
           >
-            進入管理後台
+            Dashboard
           </Link>
           <Link
             href="/login"
             className="rounded-xl border border-white/20 bg-white/10 px-8 py-3.5 text-sm font-semibold text-white/80 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:bg-white/20 hover:text-white"
           >
-            登入
+            Sign In
           </Link>
         </div>
       </div>
