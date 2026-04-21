@@ -62,25 +62,6 @@ export function LoginForm({
       {/* Glassmorphism Card */}
       <div className="relative z-10 w-full max-w-md px-4">
         <div className="rounded-3xl border border-white/25 bg-white/10 px-8 py-10 shadow-2xl shadow-black/20 backdrop-blur-2xl">
-          {/* Logo */}
-          <div className="mb-6 flex justify-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white/15 shadow-lg backdrop-blur-sm">
-              <svg
-                className="h-7 w-7 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
-                />
-              </svg>
-            </div>
-          </div>
-
           {sent ? (
             <div className="text-center">
               <h1 className="text-2xl font-bold text-white">
