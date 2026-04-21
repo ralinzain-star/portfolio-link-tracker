@@ -3,12 +3,20 @@ import { redirect } from "next/navigation";
 import { LinkGenerator } from "./link-generator";
 import { LinkTable } from "./link-table";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Admin — Portfolio Link Tracker",
 };
 
 export default async function AdminPage() {
-  const supabase = await createClient();
+  let supabase;
+  try {
+    supabase = await createClient();
+  } catch {
+    redirect("/login");
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
