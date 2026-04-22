@@ -20,10 +20,10 @@ export function LinkTable({ links }: { links: Link[] }) {
 
   if (links.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-gray-300 bg-white/50 py-16 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
+      <div className="rounded-2xl border border-dashed border-white/20 bg-white/5 py-16 text-center backdrop-blur-xl">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-white/10">
           <svg
-            className="h-6 w-6 text-gray-400"
+            className="h-6 w-6 text-white/30"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -36,10 +36,8 @@ export function LinkTable({ links }: { links: Link[] }) {
             />
           </svg>
         </div>
-        <p className="text-sm text-gray-500">No tracking links yet</p>
-        <p className="mt-1 text-xs text-gray-400">
-          Create your first one above
-        </p>
+        <p className="text-sm text-white/50">No tracking links yet</p>
+        <p className="mt-1 text-xs text-white/30">Create your first one above</p>
       </div>
     );
   }
@@ -62,13 +60,13 @@ export function LinkTable({ links }: { links: Link[] }) {
         return (
           <div
             key={link.id}
-            className="flex items-center gap-4 rounded-2xl border border-gray-200/60 bg-white/70 px-5 py-4 backdrop-blur-sm transition hover:shadow-sm"
+            className="flex items-center gap-4 rounded-2xl border border-white/15 bg-white/10 px-5 py-4 backdrop-blur-2xl transition hover:bg-white/15"
           >
             {/* Company + slug */}
             <div className="min-w-0 flex-1">
-              <p className="font-semibold text-gray-900">{link.company}</p>
+              <p className="font-semibold text-white">{link.company}</p>
               <p
-                className="mt-0.5 cursor-pointer truncate text-xs text-gray-400 transition hover:text-blue-500"
+                className="mt-0.5 cursor-pointer truncate text-xs text-white/40 transition hover:text-white/70"
                 onClick={() => {
                   navigator.clipboard.writeText(trackingUrl);
                   toast.success("Copied");
@@ -84,19 +82,19 @@ export function LinkTable({ links }: { links: Link[] }) {
               <span
                 className={`inline-flex min-w-[2.5rem] items-center justify-center rounded-full px-3 py-1 text-sm font-bold ${
                   viewCount > 0
-                    ? "bg-blue-50 text-blue-600"
-                    : "bg-gray-100 text-gray-400"
+                    ? "bg-white/20 text-white"
+                    : "bg-white/10 text-white/40"
                 }`}
               >
                 {viewCount}
               </span>
-              <p className="mt-1 text-[10px] uppercase tracking-wider text-gray-400">
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/30">
                 views
               </p>
             </div>
 
             {/* Date */}
-            <div className="hidden text-right text-xs text-gray-400 sm:block">
+            <div className="hidden text-right text-xs text-white/40 sm:block">
               {new Date(link.created_at).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
@@ -108,7 +106,7 @@ export function LinkTable({ links }: { links: Link[] }) {
             {/* Delete */}
             <button
               onClick={() => handleDelete(link.id, link.company)}
-              className="rounded-lg p-2 text-gray-300 transition hover:bg-red-50 hover:text-red-500"
+              className="rounded-lg p-2 text-white/20 transition hover:bg-white/10 hover:text-red-400"
               title="Delete"
             >
               <svg
