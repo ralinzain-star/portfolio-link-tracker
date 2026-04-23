@@ -19,33 +19,42 @@ Add to `vercel.json`:
 }
 ```
 
-Vercel calls this route once per day at UTC 01:00 (Taiwan 09:00).
+Vercel calls this route once per day at UTC 01:00 (Taiwan 09:00). Vercel automatically injects `Authorization: Bearer <CRON_SECRET>` on all cron invocations — the secret value comes from the `CRON_SECRET` environment variable set in Vercel project settings. Do NOT embed the secret in `vercel.json` (it is committed to git).
 
 ### API Route: `src/app/api/daily-report/route.ts`
 
-Runtime: `nodejs` (not Edge — needed for Supabase service client).
+Must include at top of file:
+
+```ts
+export const runtime = 'nodejs'
+```
+
+(Required: `createServiceClient()` uses Node.js APIs incompatible with Edge runtime.)
 
 **Request flow:**
 
-1. Verify `Authorization: Bearer <CRON_SECRET>` header → 403 if missing or invalid
+1. Read `Authorization` header, compare to `Bearer ${process.env.CRON_SECRET}` → 403 if missing or invalid
 2. Compute yesterday's date range in Taiwan timezone (UTC+8):
-   - Start: yesterday 00:00:00 Asia/Taipei → UTC
-   - End: yesterday 23:59:59 Asia/Taipei → UTC
-3. Query via `createServiceClient()`:
-   ```sql
-   SELECT links.company, COUNT(views.id) as click_count
-   FROM views
-   JOIN links ON views.link_id = links.id
-   WHERE views.created_at >= :start AND views.created_at < :end
-   GROUP BY links.company
-   ORDER BY click_count DESC
+   - Start: yesterday 00:00:00 Asia/Taipei → UTC ISO string
+   - End: today 00:00:00 Asia/Taipei → UTC ISO string (exclusive upper bound)
+3. Query via `createServiceClient()` using Supabase JS client:
+   ```ts
+   // Fetch all views in range with linked company name
+   const { data: views } = await supabase
+     .from('views')
+     .select('link_id, links(company)')
+     .gte('created_at', startISO)
+     .lt('created_at', endISO)
+
+   // Aggregate in JS — group by company, count clicks
+   const counts: Map<string, number> = views.reduce(...)
    ```
 4. If total clicks = 0 → return 200, no email sent
 5. Build and send email via Resend
 
 ### Email Format
 
-- **From:** `Portfolio Tracker <onboarding@resend.dev>`
+- **From:** `Portfolio Tracker <onboarding@resend.dev>` (Resend sandbox — only delivers to verified addresses; acceptable for personal use)
 - **To:** `NOTIFICATION_EMAIL`
 - **Subject:** `昨日連結點擊摘要 (M/DD)`
 - **Body (text):** Company name + click count per link, total at bottom
@@ -62,15 +71,16 @@ Meta         1 次
 
 | Variable | Purpose |
 |---|---|
-| `CRON_SECRET` | Bearer token to authenticate Vercel Cron calls |
+| `CRON_SECRET` | Bearer token Vercel injects on cron calls; also set in `.env.local` for local curl testing |
 
-Existing `RESEND_API_KEY` and `NOTIFICATION_EMAIL` are reused.
+Add to Vercel project settings → Environment Variables. Existing `RESEND_API_KEY` and `NOTIFICATION_EMAIL` are reused.
 
 ## Security
 
-- Route rejects any request without a valid `Authorization: Bearer <CRON_SECRET>` header
-- `CRON_SECRET` is set in Vercel environment variables (not committed to git)
-- Uses `createServiceClient()` (service role) to read views — no RLS issues
+- Route checks `Authorization: Bearer <CRON_SECRET>` header → 403 if mismatch
+- Vercel automatically injects this header on cron calls (all plans)
+- `CRON_SECRET` only exists in Vercel env vars and `.env.local` — never in `vercel.json` or committed to git
+- Uses `createServiceClient()` (service role) to read views — bypasses RLS safely server-side
 
 ## Error Handling
 
@@ -80,6 +90,7 @@ Existing `RESEND_API_KEY` and `NOTIFICATION_EMAIL` are reused.
 
 ## Files Changed
 
-- `vercel.json` — add crons config (create if not exists)
-- `src/app/api/daily-report/route.ts` — new API route
+- `vercel.json` — add crons config (create if not exists); path is `/api/daily-report` with no secret
+- `src/app/api/daily-report/route.ts` — new API route with `export const runtime = 'nodejs'`
 - `.env.example` — document `CRON_SECRET`
+- `.env.local` — add `CRON_SECRET` for local curl testing
